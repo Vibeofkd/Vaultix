@@ -40,6 +40,7 @@ export enum EscrowType {
   'status',
   'createdAt',
 ])
+@Index('idx_escrows_dispute_deadline', ['disputeDeadline'])
 export class Escrow {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -106,6 +107,9 @@ export class Escrow {
 
   @OneToMany(() => EscrowEvent, (event) => event.escrow, { cascade: true })
   events: EscrowEvent[];
+
+  @OneToOne(() => Dispute, (dispute) => dispute.escrow)
+  dispute?: Dispute;
 
   // @OneToMany(() => Milestone, (m) => m.escrow)
   // milestones: Milestone[];

@@ -266,4 +266,15 @@ export class EscrowController {
       ipAddress,
     );
   }
+
+  /**
+   * POST /escrows/:id/dispute/default-resolve
+   * Trigger default resolution for overdue disputes (scheduler/admin only).
+   */
+  @Post(':id/dispute/default-resolve')
+  @UseGuards(AdminGuard) // Add AdminGuard import/use
+  async triggerDefaultResolution(@Param('id') id: string) {
+    return this.escrowService.triggerDefaultResolution(id);
+  }
+
 }
