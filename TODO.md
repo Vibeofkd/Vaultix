@@ -1,13 +1,16 @@
 # Dispute Deadline Implementation TODO
 
 ## Steps:
-- [x] 1. Update Escrow entity to add `disputeDeadline` field
-- [x] 2. Create and apply new TypeORM migration for `disputeDeadline` column
-- [x] 3. Update `escrow.service.ts`: set deadline in `fileDispute()`, implement `triggerDefaultResolution()`
-- [x] 4. Add endpoint in `escrow.controller.ts` for `/dispute/default-resolve`
-- [x] 5. Add cron job in `escrow-scheduler.service.ts` to check overdue disputes every 5 min
-- [ ] 6. Update tests and verify
-- [ ] 7. Run migration and test end-to-end
+- [x] 1. Update Escrow entity (`escrow.entity.ts`): add `disputeDeadline` column, `Dispute` import, and `OneToOne` decorator imports
+- [x] 2. Update EscrowEvent enum (`escrow-event.entity.ts`): add `DISPUTE_TIMEOUT = 'dispute_timeout'`
+- [x] 3. Fix Escrow controller (`escrow.controller.ts`): add missing `AdminGuard` import
+- [x] 4. Fix Escrow service (`escrow.service.ts`): replace string cast with `EscrowEventType.DISPUTE_TIMEOUT`
+- [ ] 5. Update on-chain types (`lib.rs`): add `dispute_deadline: u64` to `Escrow` and `EscrowEntryV2` structs; update mapping functions
+- [ ] 6. Update on-chain `raise_dispute` (`lib.rs`): set `dispute_deadline` when raising a dispute
+- [ ] 7. Implement on-chain `trigger_default_resolution` (`lib.rs`): auto-resolve with 50/50 split after deadline
+- [ ] 8. Add on-chain tests (`test.rs`): verify deadline setting and default resolution behavior
+- [ ] 9. Verify backend builds (`npm run build`)
+- [ ] 10. Verify on-chain tests pass (`cargo test`)
 
-**Completed:** Steps 1-5
-**Next:** Step 6 - tests/migration
+**Next:** Start editing files
+

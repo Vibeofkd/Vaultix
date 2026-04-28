@@ -1061,7 +1061,7 @@ export class EscrowService {
 
     await this.logEvent(
       escrowId,
-      'DISPUTE_TIMEOUT' as EscrowEventType, // Add to enum if needed
+      EscrowEventType.DISPUTE_TIMEOUT,
       'system',
       { outcome: 'split_50_50' },
     );

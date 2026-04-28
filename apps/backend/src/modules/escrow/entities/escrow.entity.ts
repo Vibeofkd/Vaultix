@@ -7,12 +7,14 @@ import {
   UpdateDateColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   JoinColumn,
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { Party } from './party.entity';
 import { Condition } from './condition.entity';
 import { EscrowEvent } from './escrow-event.entity';
+import { Dispute } from './dispute.entity';
 
 export enum EscrowStatus {
   PENDING = 'pending',
@@ -107,6 +109,9 @@ export class Escrow {
 
   @OneToMany(() => EscrowEvent, (event) => event.escrow, { cascade: true })
   events: EscrowEvent[];
+
+  @Column({ type: 'datetime', nullable: true })
+  disputeDeadline?: Date;
 
   @OneToOne(() => Dispute, (dispute) => dispute.escrow)
   dispute?: Dispute;
